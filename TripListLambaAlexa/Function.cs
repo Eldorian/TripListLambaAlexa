@@ -22,10 +22,9 @@ namespace TripListLambaAlexa
 
         public SkillResponse FunctionHandler(SkillRequest input, ILambdaContext context)
         {
-            var requestType = input.GetRequestType();
-            if (requestType == typeof(IntentRequest))
+            var intentRequest = input.Request as IntentRequest;
+            if (intentRequest.Intent.Name.Equals("AddTrip"))
             {
-                var intentRequest = input.Request as IntentRequest;
                 var dayRequested = intentRequest.Intent.Slots["Date"].Value;
 
                 return MakeSkillResponse($"I've added {dayRequested} to your trip list", true);
